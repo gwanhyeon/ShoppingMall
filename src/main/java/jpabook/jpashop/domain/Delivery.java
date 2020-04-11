@@ -1,8 +1,5 @@
 package jpabook.jpashop.domain;
 
-import jpabook.jpashop.domain.Address;
-import jpabook.jpashop.domain.Order;
-import jpabook.jpashop.domain.item.DeliveryStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +14,7 @@ public class Delivery {
     @Column(name = "delivery_id")
     private Long id;
 
-    @OneToOne(mappedBy = "delivery")        // 주인과 매핑
+    @OneToOne(mappedBy = "delivery", fetch = FetchType.LAZY)        // 주인과 매핑
     private Order order;
 
     @Embedded
