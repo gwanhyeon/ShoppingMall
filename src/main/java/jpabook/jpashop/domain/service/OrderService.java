@@ -1,13 +1,11 @@
 package jpabook.jpashop.domain.service;
 
-import jpabook.jpashop.domain.Delivery;
-import jpabook.jpashop.domain.Member;
-import jpabook.jpashop.domain.Order;
-import jpabook.jpashop.domain.OrderItem;
+import jpabook.jpashop.domain.*;
 import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.domain.repository.ItemRepository;
 import jpabook.jpashop.domain.repository.MemberRepository;
 import jpabook.jpashop.domain.repository.OrderRepository;
+import jpabook.jpashop.domain.repository.OrderSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +19,7 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final MemberRepository memberRepository;
-    private final ItemRepository itemRepository;
+    private final ItemService itemService;
 
 
     /**
@@ -34,11 +32,12 @@ public class OrderService {
 
         // 엔티티 조회
         Member member = memberRepository.findOne(memberId);
-        Item item = itemRepository.findOne(itemId);
+        Item item = itemService.findOne(itemId);
 
         // 배송 정보 생성
         Delivery delivery = new Delivery();
         delivery.setAddress(member.getAddress());
+        delivery.setStatus(DeliveryStatus.READY);
 
         //주문 상품 생성
         OrderItem orderItem = OrderItem.createOrderItem(item,item.getPrice(),count);
@@ -79,8 +78,8 @@ public class OrderService {
     /**
      * 주문 검색
      */
-//
-//    public List<Order> findOrders(OrderSearch orderSearch){
-//        return orderRepository.findAll(orderSearch);
-//    }
+
+    public List<Order> findOrders(OrderSearch orderSearch){
+        return orderRepository.findAllByString(orderSearch);
+    }
 }

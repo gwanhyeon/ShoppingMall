@@ -10,6 +10,7 @@ import javax.persistence.*;
 
 
 @Entity
+@Table(name="order_item")
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem {
@@ -42,13 +43,13 @@ public class OrderItem {
      * 주문 아이템 관련 생성 메서드
      */
     public static OrderItem createOrderItem(Item item, int orderPrice, int count){
-        OrderItem orderItem = new OrderItem();
-        orderItem.setItem(item);
-        orderItem.setOrderPrice(orderPrice);
-        orderItem.setCount(count);
+        OrderItem orderItems = new OrderItem();
+        orderItems.setItem(item);
+        orderItems.setOrderPrice(orderPrice);
+        orderItems.setCount(count);
 
         item.removeStock(count);
-        return orderItem;
+        return orderItems;
     }
 
     // == 비즈니스 로직 ==//

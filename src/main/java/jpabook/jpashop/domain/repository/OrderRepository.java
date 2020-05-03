@@ -74,7 +74,7 @@ public class OrderRepository {
     JPA Criteria
     조금더 나은방법 표준 방식 동적쿼리
      */
-    /*
+
     public List<Order> findAllByString(OrderSearch orderSearch) {
         //language=JPAQL
         String jpql = "select o From Order o join o.member m";
@@ -109,7 +109,7 @@ public class OrderRepository {
         }
         return query.getResultList();
     }
-    */
+
 
 
 
