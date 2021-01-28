@@ -1,24 +1,26 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header">
-    <title>Gwang-Gwang Shopping Mall</title>
+    <title>K-Mall</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div class="jumbotron">
-        <h1>Gwang-Gwang Shopping Mall</h1>
+        <h1>회원 관리</h1>
         <p class="lead">회원 기능</p>
         <p>
             <a class="btn btn-lg btn-secondary" href="/members/new">회원 가입</a>
             <a class="btn btn-lg btn-secondary" href="/members">회원 목록</a>
         </p>
+        <h1>상품 관리</h1>
         <p class="lead">상품 기능</p>
         <p>
             <a class="btn btn-lg btn-dark" href="/items/new">상품 등록</a>
             <a class="btn btn-lg btn-dark" href="/items">상품 목록</a>
         </p>
+        <h1>주문 관리</h1>
         <p class="lead">주문 기능</p>
         <p>
             <a class="btn btn-lg btn-info" href="/order">상품 주문</a>

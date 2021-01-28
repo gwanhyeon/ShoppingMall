@@ -1,6 +1,4 @@
 package jpabook.jpashop.domain.repository;
-
-
 import jpabook.jpashop.domain.OrderStatus;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,8 +7,6 @@ import lombok.Setter;
 @Setter
 
 public class OrderSearch {
-
     private String memberName; //회원이름
     private OrderStatus orderStatus;        // 주문상태 [ORDER, CANCEL]
-
 }

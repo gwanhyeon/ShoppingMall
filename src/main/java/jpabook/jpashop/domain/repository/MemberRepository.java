@@ -21,16 +21,14 @@ public class MemberRepository {
 //        this.em = em;
 //    }
 
-    public void save(Member member){
+    public Long save(Member member){
         EntityManager em = this.em;
         em.persist(member);
+        return member.getId();
     }
-
     public Member findOne(Long id){
-        Member member = em.find(Member.class, id);
-        return member;
+         return em.find(Member.class, id);
     }
-
     // 모두 찾기
     public List<Member> findAll(){
         //엔티티 객체에 대한 쿼리를 준다라고 생각을 하면된다.
@@ -38,13 +36,10 @@ public class MemberRepository {
                 .getResultList();
         return select_m_from_member_m;
     }
-
     // 이름 으로 조회
     public List<Member> findByName(String name){
         return em.createQuery("select m from Member m where m.name = :name", Member.class)
                 .setParameter("name",name)
                 .getResultList();
-
     }
-
 }

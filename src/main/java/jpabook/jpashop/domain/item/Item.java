@@ -12,10 +12,9 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "dtype")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)           // 싱글 테이블 전략
+@DiscriminatorColumn(name = "dtype")                            //  구분될때 값 지정하는것
 public abstract class Item {
-
     @Id
     @GeneratedValue
     @Column(name="item_id")
@@ -31,7 +30,6 @@ public abstract class Item {
     private List<Category> categories = new ArrayList<Category>();
 
     /* 상품 늘리고 줄이고 비즈니스 로직 */
-
     /**
      * 재고수량 늘리고
      * @param orderQuantity
@@ -49,7 +47,6 @@ public abstract class Item {
         if(restStock < 0){
             throw new NotEnoughStockException("Need More Stock");
         }
-
         this.stockQuantity = restStock;
     }
 

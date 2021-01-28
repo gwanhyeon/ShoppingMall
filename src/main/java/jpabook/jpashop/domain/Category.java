@@ -11,13 +11,14 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-
 public class Category {
-
     @Id @GeneratedValue
     @Column(name = "category_id")
     private Long id;
 
+    /**
+     * 셀프로 양방향 걸기
+     */
     @ManyToMany
     @JoinTable(name ="category_item",
         joinColumns = @JoinColumn(name ="category_item"),
@@ -35,7 +36,4 @@ public class Category {
         this.child.add(child);
         child.setParent(this);
     }
-
-
-
 }
