@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Transactional
+@Transactional          // 테스트에 있으면 자동으로 롤백을 진행한다.
 public class MemberServiceTest {
 
     @Autowired MemberService memberService;
@@ -25,6 +25,7 @@ public class MemberServiceTest {
 
     // 롤백되는 데이터를 보고싶을때는 엔티티매니저를 선언하면 된다
     @Test
+//    @Rollback(false)
     public void 회원가입() throws Exception{
 
 
@@ -36,7 +37,7 @@ public class MemberServiceTest {
         Long saveId = memberService.join(member);
 
         // then
-//        entityManager.flush();
+//        entityManager.flush();            영속성컨텍스트가 멤버에 들어간다.
         assertEquals(member, memberRepository.findOne(saveId));
 
     }

@@ -33,7 +33,7 @@ import static org.junit.Assert.*;
     public void 상품주문() throws Exception{
         Member member = createMember();
 
-        Book book = createBook("시골 JPA", 10000, 10);
+        Book book = createBook("KGH", 10000, 10);
 
 
         int orderCount = 2;

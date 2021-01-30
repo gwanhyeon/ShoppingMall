@@ -27,7 +27,7 @@ public class Order {
      */
 
     @ManyToOne(fetch = FetchType.LAZY)           // 오더와 멤버는 다대일 관계, 여러개의 주문은 하나의 멤버만 할 수 있다.
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "member_id") 
     private Member member;
 
     @OneToMany(mappedBy = "order")
@@ -98,6 +98,7 @@ public class Order {
         }
         this.setStatus(OrderStatus.CANCEL);
 
+        // 더티체킹하는부분이다. 캔슬부분에는 왜 없을까? 더티체킹하고 업데이트를 알아서해준다.
         for (OrderItem orderItem: orderItems) {
             orderItem.cancel();
         }
@@ -113,7 +114,6 @@ public class Order {
             totalPrice += orderItem.getTotalPrice();
         }
         return totalPrice;
-
     }
 
 

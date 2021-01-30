@@ -71,7 +71,7 @@ public class OrderRepository {
     }
 
     /*
-    JPA Criteria
+    JPA Criteria - 실무에서 못써
     조금더 나은방법 표준 방식 동적쿼리
      */
 

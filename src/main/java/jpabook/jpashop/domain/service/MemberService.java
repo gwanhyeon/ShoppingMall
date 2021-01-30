@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)         // 전체를 리드온니로 먹히고 회원가입시에만 읽기전용이 아닌것으로 사용할때 저렇게 쓴다.
 //@AllArgsConstructor
-@RequiredArgsConstructor            //final있는 필드의 생성자만 생성시켜준다. 이것이 조금더 나은 방법이다.
+@RequiredArgsConstructor            // final있는 필드의 생성자만 생성시켜준다. 이것이 조금더 나은 방법이다.
 //데이터 변경은 트랙잭션이 반드시 있어야한다. 다른 트랜잭션이 여러개있지만 스프링꺼 쓰는게 좋음
 public class MemberService {
 
@@ -54,6 +54,7 @@ public class MemberService {
      * 회원 전체 조회
      */
 
+//    @Transactional(readOnly = true)
     public List<Member> findMembers(){
         return memberRepository.findAll();
     }
@@ -61,8 +62,15 @@ public class MemberService {
     /**
      * 회원 단건 조회 트랜잭션을 넣어주면 읽기전용 트랜잭션이기때문에 성능상 좋아짐
      */
-
+//    @Transactional(readOnly = true)
     public Member findOne(Long memberId){
         return memberRepository.findOne(memberId);
+    }
+
+    @Transactional
+    public void update(Long id, String name) {
+        // 현재 영속상태
+        Member member = memberRepository.findOne(id);
+        member.setName(name);
     }
 }

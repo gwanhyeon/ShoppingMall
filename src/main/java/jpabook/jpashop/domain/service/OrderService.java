@@ -6,6 +6,8 @@ import jpabook.jpashop.domain.repository.ItemRepository;
 import jpabook.jpashop.domain.repository.MemberRepository;
 import jpabook.jpashop.domain.repository.OrderRepository;
 import jpabook.jpashop.domain.repository.OrderSearch;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +17,7 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderService {
 
     private final OrderRepository orderRepository;
@@ -45,12 +48,10 @@ public class OrderService {
         // protected써서 처리할때
 //        OrderItem orderItem1 = new OrderItem();
 
-
-
         // 주문 생성
         Order order = Order.createOrder(member, delivery, orderItem);
 
-        // 주문 저장
+        // 주문 저장 order가 모든것들을 관리하게 될때 사용한다. 다른곳에서 쓰이는곳이 있으면 같이쓰지말도록한다.
         orderRepository.save(order);                // cascade 옵션이 붙여져있는데 같이 처리할때 하는것이다 하나의 퍼시스트를 할때 다른 퍼시스트도 같이 조질때
 
         return order.getId();
@@ -69,8 +70,6 @@ public class OrderService {
 
         // 주문 엔티티조회
         Order order = orderRepository.findOne(orderId);
-
-
         // 주문 취소
         order.cancel();
 
