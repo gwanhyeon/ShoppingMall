@@ -1,12 +1,13 @@
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/jpashop
+    url: jdbc:h2:tcp://localhost/~/jpashop;MVCC=TRUE
     username: sa
-    password:
+    password: 1
     driver-class-name: org.h2.Driver
+    hibernate.dialect: org.hibernate.dialect.H2Dialect
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
     properties:
       hibernate:
 #        show_sql: true

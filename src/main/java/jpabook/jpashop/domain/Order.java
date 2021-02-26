@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name="orders")
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 
     @Id
@@ -30,7 +30,8 @@ public class Order {
     @JoinColumn(name = "member_id") 
     private Member member;
 
-    @OneToMany(mappedBy = "order")
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
     // casecadetype의 경우 한번에 persist할 경우 여러번 넣는게 아니라 한번만 넣어준다.

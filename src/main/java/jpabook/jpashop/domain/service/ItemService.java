@@ -13,7 +13,6 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class ItemService {
-
     private final ItemRepository itemRepository;
 
     /**
@@ -24,20 +23,19 @@ public class ItemService {
     public void saveItem(Item item){
         itemRepository.save(item);
     }
+
     /**
      * 상품 업데이트
      * 영속성 엔티티로 업데이트  -> 실제로 머지보다는 변경/감지 해당 로직을 사용해야 한다!!!
      * 컨트롤러에서 어설프게 엔티티를 생성하지말자!!!!!!!!
      * @param
      */
-
     @Transactional
     public Item updateItem(Long id, String name, int price, int stockQuantity, String author, String isBn){
         Item findItem = itemRepository.findOne(id);         //영속성 엔티티를 찾아왔음
 
-
         /* 실제 로직 처리 더 나은 방법 */
-//        findItem.change(name,price,stockQuantity);
+//      findItem.change(name,price,stockQuantity);
         findItem.setName(name);
         findItem.setPrice(price);
         findItem.setStockQuantity(stockQuantity);

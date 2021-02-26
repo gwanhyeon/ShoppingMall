@@ -16,6 +16,8 @@ public class Category {
     @Column(name = "category_id")
     private Long id;
 
+    private String name;
+
     /**
      * 셀프로 양방향 걸기
      */
@@ -26,6 +28,7 @@ public class Category {
     private List<Item> items = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY) // 부모이니까
+    @JoinColumn(name = "parent_id")
     private Category parent;
 
     @OneToMany(mappedBy = "parent")

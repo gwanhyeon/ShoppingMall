@@ -2,9 +2,7 @@ package jpabook.jpashop.domain.service;
 
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.repository.MemberRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,17 +16,11 @@ import java.util.List;
 public class MemberService {
 
     private final MemberRepository memberRepository;          // 레파지토리에 있는것을 필드인젝션을 해준다. final로 권장한다-> 컴파일시점을 알 수 있음.
-
-
 //    // 생성자 인젝션으로 넣어주는것이 좋다.
 //    @Autowired          // 생성자 하나만있는경우 생성자를 자동으로 인젝션시켜준다.
 //    public MemberService(MemberRepository memberRepository) {
 //        this.memberRepository = memberRepository;
 //    }
-
-
-
-
     /**
      * 회원가입 readonly = true 넣으면 안됨.
      */
@@ -44,7 +36,6 @@ public class MemberService {
     private void validateDuplicateMember(Member member) {
         // EXCEPTION
         List<Member> findMembers = memberRepository.findByName(member.getName());           // 유니크 제약조건을 먹어주는게 동시회원가입을 막을 수 있다.
-
         if(!findMembers.isEmpty()){
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
