@@ -115,6 +115,16 @@ public class OrderRepository {
                         "join fetch o.member m " +
                         "join fetch o.delivery d ", Order.class).getResultList();
     }
+    public List<Order> findAllWithDelivery(int offset, int limit) {
+        // fetch는 Lazy를 무시하고 모든것들을 가지고온다.
+        return em.createQuery(
+                "select o from Order o " +
+                        "join fetch o.member m " +
+                        "join fetch o.delivery d ", Order.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+    }
 
     /**
      *  반환할때 dto로 변경해서 반환하는 방법
@@ -131,6 +141,18 @@ public class OrderRepository {
                         "join o.delivery d", OrderSimpleQueryDto.class)
                 .getResultList();
 
+    }
+
+    public List<Order> findAllWithItem() {
+        return em.createQuery(
+                "select distinct o from Order o " +
+                        "join fetch o.member m " +
+                        "join fetch o.delivery d " +
+                        "join fetch o.orderItems oi " +
+                        "join fetch oi.item i", Order.class)
+                .setFirstResult(1)
+                .setMaxResults(100)
+                .getResultList();
     }
 /*
         return em.createQuery("select o from Order o join o.member m" +
