@@ -1,35 +1,68 @@
 package jpabook.jpashop.domain.repository;
 
-import jpabook.jpashop.api.OrderSimpleApiController;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import jpabook.jpashop.domain.Order;
+import jpabook.jpashop.domain.OrderStatus;
+import jpabook.jpashop.domain.QMember;
+import jpabook.jpashop.domain.QOrder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.*;
-import javax.swing.text.html.parser.Entity;
-import java.util.ArrayList;
 import java.util.List;
 
+import static jpabook.jpashop.domain.QMember.*;
+import static jpabook.jpashop.domain.QOrder.*;
+
 @Repository
-@RequiredArgsConstructor
 public class OrderRepository {
 
     private final EntityManager em;
-
+    private final JPAQueryFactory query;
     public void save(Order order){
         em.persist(order);
+    }
+
+    public OrderRepository(EntityManager em) {
+        this.em = em;
+        this.query = new JPAQueryFactory(em);
     }
 
     public Order findOne(Long id){
         return em.find(Order.class, id);
     }
-
-    // 동적쿼리가 들어가야하기 때문에 설명이 필요함
     public List<Order> findAll(OrderSearch orderSearch) {
-        /* 무식한 방법 1 */
+
+
+
+        return query.select(order)
+                .from(order)
+                .join(order.member, member)
+                .where(statusEq(orderSearch.getOrderStatus()), nameLike(orderSearch.getMemberName()))
+                .limit(1000)
+                .fetch();
+    }
+
+    private BooleanExpression nameLike(String orderSearch) {
+        if(!StringUtils.hasText(orderSearch)){
+            return null;
+        }
+        return member.name.like(orderSearch);
+    }
+
+    private BooleanExpression statusEq(OrderStatus statusCond){
+        if(statusCond == null){
+            return null;
+        }
+        return order.status.eq(statusCond);
+    }
+
+    // 동적쿼리가 들어가야하기 때문에 설명이 필요함  /* 무식한 방법 1 */
+    /*
+    public List<Order> findAll(OrderSearch orderSearch) {
 
         String jpql = "select o from Order o join o.member m";
 
@@ -67,6 +100,8 @@ public class OrderRepository {
         }
         return query.getResultList();
     }
+
+     */
 
     /*
     JPA Criteria - 실무에서 못써
