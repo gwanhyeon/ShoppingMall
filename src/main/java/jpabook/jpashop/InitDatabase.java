@@ -31,8 +31,7 @@ public class InitDatabase {
             em.persist(book2);
             OrderItem orderItem1 = OrderItem.createOrderItem(book1, 10000, 1);
             OrderItem orderItem2 = OrderItem.createOrderItem(book2, 20000, 2);
-            Order order = Order.createOrder(member, createDelivery(member),
-                    orderItem1, orderItem2);
+            Order order = Order.createOrder(member, createDelivery(member), orderItem1, orderItem2);
             em.persist(order);
         }
         public void dbInit2() {
@@ -49,8 +48,7 @@ public class InitDatabase {
                     orderItem2);
             em.persist(order);
         }
-        private Member createMember(String name, String city, String street,
-                                    String zipcode) {
+        private Member createMember(String name, String city, String street, String zipcode) {
             Member member = new Member();
             member.setName(name);
             member.setAddress(new Address(city, street, zipcode));
