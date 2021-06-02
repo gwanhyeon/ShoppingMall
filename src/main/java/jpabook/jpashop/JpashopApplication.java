@@ -12,10 +12,6 @@ public class JpashopApplication {
 	}
 	@Bean
 	Hibernate5Module hibernate5Module(){
-		Hibernate5Module hibernate5Module = new Hibernate5Module();
-		// 성능적으로 쓰지 않도록하고, 엔티티를 노출하지 않도록한다.
-//		hibernate5Module.configure(Hibernate5Module.Feature.FORCE_LAZY_LOADING, true);
 		return new Hibernate5Module();
 	}
-
 }
