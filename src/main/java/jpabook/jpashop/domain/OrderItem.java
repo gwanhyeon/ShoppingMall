@@ -27,20 +27,9 @@ public class OrderItem {
     @JoinColumn(name="order_id")
     private Order order;
 
-    private int orderPrice;         // 주문가격
-    private int count;              // 주문 수량
+    private int orderPrice;
+    private int count;
 
-    // jpa 쓰면서 프로텍티드 쓰지말라 이것을 롬복이로 죽이기
-//    protected OrderItem() {
-//
-//
-//    }
-
-
-    // == 생성 메서드 ==//
-    /**
-     * 주문 아이템 관련 생성 메서드
-     */
     public static OrderItem createOrderItem(Item item, int orderPrice, int count){
         OrderItem orderItems = new OrderItem();
         orderItems.setItem(item);
@@ -50,18 +39,10 @@ public class OrderItem {
         return orderItems;
     }
 
-    // == 비즈니스 로직 ==//
-    /**
-     * 주문 취소 비즈니스 로직
-     */
     public void cancel() {
         getItem().addStock(count);      //주문수량만큼 늘려준다.
     }
 
-    // == 조회 로직 ==//
-    /**     * 전체 주문 가격 조회 로직
-     * @return
-     */
     public int getTotalPrice() {
         return getOrderPrice() * getCount();
     }

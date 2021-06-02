@@ -5,7 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.Embeddable;
 
-@Embeddable         // 내장타입을 포함한것을 뜻한다.
+@Embeddable
 @Getter
 public class Address {
 
@@ -13,7 +13,6 @@ public class Address {
     private String street;
     private String zipcode;
 
-    // 함수로 생성시키면 안된다.
     protected Address(){
 
     }
