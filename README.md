@@ -16,3 +16,6 @@
 - H2 Database 
 - JUnit4
 - thymeleaf
+
+### ⫻Entity Relationship Diagram
+![ER Diagram](./ER_Diagram.png)
