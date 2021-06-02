@@ -1,5 +1,5 @@
-## 🚚 Order: K-MALL 쇼핑몰
-개발 소요 시간: 2019.03 ~ 2019.05 / 개인 프로젝트
+## 🚀 Order: K-MALL 쇼핑몰
+개발 소요 시간: 2019.03 ~ 2019.03 / 개인 프로젝트
 
 ### 📃 프로젝트 설명
 - 미니 쇼핑몰  회원, 상품, 주문 기능 토이 프로젝트
@@ -11,5 +11,8 @@
 
 ### 📚 Dev Stack
 - SpringBoot
-- H2 / JPA
+- JPA(Hibernate)
+- QueryDSL
+- H2 Database 
 - JUnit4
+- thymeleaf
