@@ -28,12 +28,7 @@ public class OrderQueryRepository {
         return result;
     }
 
-    /**
-     * 컬렉션 최적화 쿼리 2번 날
-     * @return
-     */
     public List<OrderQueryDto> findAllByDtoOptimization() {
-        // 쿼리 1번
         List<OrderQueryDto> result = findOrders();
         List<Long> orderIds = result.stream()
                 .map(o -> o.getOrderId())
@@ -45,7 +40,6 @@ public class OrderQueryRepository {
     }
 
     private Map<Long, List<OrderItemQueryDto>> findOrderItemMap(List<Long> orderIds) {
-        // 쿼리 2번
         List<OrderItemQueryDto> orderItems = em.createQuery(
                 "select new jpabook.jpashop.domain.repository.order.query.OrderItemQueryDto(oi.order.id, i.name, oi.orderPrice, oi.count)" +
                         " from OrderItem oi" +
@@ -53,8 +47,6 @@ public class OrderQueryRepository {
                         " where oi.order.id in :orderIds", OrderItemQueryDto.class)
                 .setParameter("orderIds", orderIds)
                 .getResultList();
-        // list -> map으로 변경이 가능하다. groupby
-        // 메모리에서 맵으로 다 가져온다음에 메모리에서 매칭해서 값을 가져온다. 쿼리가 총 2번나가야지 정상
         Map<Long, List<OrderItemQueryDto>> orderItemMap = orderItems.stream()
                 .collect(Collectors.groupingBy(orderItemQueryDto -> orderItemQueryDto.getOrderId()));
         return orderItemMap;
@@ -86,10 +78,6 @@ public class OrderQueryRepository {
         return result;
     }
 
-    /**
-     * 페이징 처리는 하지 못한다.
-     * @return
-     */
     public List<OrderFlatDto> findAllByDtoFlat() {
         return em.createQuery(
                 "select new jpabook.jpashop.domain.repository.order.query.OrderFlatDto(o.id, m.name, o.orderDate, o.status, d.address, i.name, oi.orderPrice, oi.count)" +

@@ -10,7 +10,6 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(of = "orderId")
-// 같은 동일 아이디값으로 join된 결과값을 묶어주는 역할을 진행한다.
 public class OrderQueryDto {
     private Long orderId;
     private String name;
