@@ -25,25 +25,24 @@ import static org.junit.Assert.*;
 
     @Autowired
     EntityManager em;
+
     @Autowired
     OrderService orderService;
+
     @Autowired
     OrderRepository orderRepository;
+
     @Test
     public void 상품주문() throws Exception{
+        //given
         Member member = createMember();
-
         Book book = createBook("KGH", 10000, 10);
-
-
         int orderCount = 2;
+
         //when
-
-
         Long orderId = orderService.order(member.getId(), book.getId(), orderCount);
 
         //then
-
         Order getOrder = orderRepository.findOne(orderId);
 
         assertEquals("상품 주문시 상태는 ORDER", OrderStatus.ORDER, getOrder.getStatus());
@@ -71,43 +70,35 @@ import static org.junit.Assert.*;
         return member;
     }
 
-
     @Test(expected = NotEnoughStockException.class)
     public void 상품주문_재고수량초과() throws Exception{
-        //given
 
+        //given
         Member member = createMember();
         Item item = createBook( "시골 JPA", 10000, 10);
-
         int orderCount = 11;
 
         //when
-
         orderService.order(member.getId(), item.getId(), orderCount);
+
         //then
         fail("재고 수량 예외가 발생합니다.");
     }
 
-    // 커멘트 + 쉬프트 + T 테스트 단위 옮겨 다닐 수 있음, 파라미터들 커멘드 옵션 M 메서드로 만들어준다., 커멘드 옵션 P 파라미터를 자동으로 지정해줄 수 있다.
-    // 커멘드 + 옵션 + V 자동으로 파라미터 선언을 만들어준다.
-
     @Test
     public void 주문취소() throws Exception{
-        //given
 
+        //given
         Member member =createMember();
         Book item = createBook("시골 JPA", 10000, 10);
-
         int orderCount = 2;
         Long orderId = orderService.order(member.getId(), item.getId(), orderCount);
-        //when
 
+        //when
         orderService.cancleOrder(orderId);
 
         //then
-
         Order getOrder = orderRepository.findOne(orderId);
-
         assertEquals("주문 취소시에는 cancle이다", OrderStatus.CANCEL, getOrder.getStatus());
         assertEquals("주문이 취소된 상품은 그만큼 재고가 증가해야한다", 10, item.getStockQuantity());
 
