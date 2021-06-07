@@ -27,7 +27,6 @@ public class OrderQueryRepository {
         });
         return result;
     }
-
     public List<OrderQueryDto> findAllByDtoOptimization() {
         List<OrderQueryDto> result = findOrders();
         List<Long> orderIds = result.stream()
